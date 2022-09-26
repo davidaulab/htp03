@@ -6,20 +6,14 @@
 
 @section('content')
 <div class="row row-cols-1 row-cols-md-3 row-cols-xld-2 g-4">
-  @foreach ($breweries as $brewery)
+    @foreach ($breweries as $brewery)
 
-      <!--p>{{ $brewery[0] }} - {{ $brewery[1] }} - {{ $brewery[2] }}</p-->
-      <div class="col">
-          <div class="card">
-            <div class="card-body  d-flex row">
-              <h5 class="card-title">{{ $brewery[1] }}</h5>
-              <p class="card-text">{{ $brewery[2] }}</p>
-              <a class="btn btn-warning" href="/brewery/{{ $brewery[0] }}">Ver más</a>
-              
-            </div>
-          </div>
-        </div>
-  @endforeach
-  </div>
+    <x-card title="{{ $brewery[1] }}" body="{{ $brewery[2] }}" link="/brewery/{{ $brewery[0] }}" text>
+        <x-slot:text>
+            <p class="bg-red">Disclaimer / <b>Exención de responsabilidad</b></p>
+        </x-slot:text>
+    </x-card>
+
+    @endforeach
+</div>
 @endsection
- 

@@ -1,0 +1,21 @@
+body {
+        background-color: #FFF8F0;
+}
+.msg,.msgError {
+        
+        position: absolute;
+        top: 60px;
+        right: 10px;
+        max-width: 50%;
+        background-color: #94b945;
+        color: #f0fff3;
+        border-style: solid;
+        border-width: 2px;
+        border-color: #6d8f23;
+        padding: 0.7rem;
+        border-radius: 0.5rem;
+}
+.msgError {
+        background-color: #b75b19;
+        border-color: #ed4b0a;
+}

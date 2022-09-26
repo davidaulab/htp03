@@ -2,7 +2,7 @@
 @section('body')
   
 
-        <nav class="navbar navbar-expand-lg bg-light">
+        <nav class="navbar navbar-expand-lg bg-light sticky-top" >
             <div class="container-fluid">
               <a class="navbar-brand" href="/"><img src="{{ asset ('/img/logo.png') }}" height="30"></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,10 +31,19 @@
           </nav>
     </header>
 
+    <x-flash />
+    
     <h1 class="text-center">@yield ('pagetitle')</h1>
 
     <div class="container-fluid" style="max-width: 800px">
       @yield ('content')
+      
     </div>
+    
+    <x-message type="" message=""/>
 
+    <nav class="navbar navbar-expand-lg bg-light mt-4 " >
+      <p class="w-100 text-center"> &copy; 2022, Hackademy Part Time 03</p>
+    </nav>
+        
     @endsection

@@ -1,5 +1,0 @@
-function saludo () {
-
-        alert ('Hola');
-
-}

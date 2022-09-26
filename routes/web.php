@@ -1,37 +1,22 @@
 <?php
 
+use App\Http\Controllers\BreweryController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
-
+/*
 function getBreweries () {
-   /* $breweries = [
-                    [
-                        ['Zalwa', 3],
-                        ['Adrián', 5],
-                        ['Helena', 7],
-                        ['Nacho', 10]
-                    ],
-                ];
-                //$breweries[0][2][1];
-                foreach ($breweries as $primeraDimension) {
-                    echo "<h1>Primera</h1>";
-                    foreach ($primeraDimension as $segundaDimension) {
-                        echo "<h2>Segunda</h2>";
-                        foreach ($segundaDimension as $terceradimension) {
-                            echo "<p>" . $terceradimension . '</p>';
-                        }
-                    }
-                } */
+   
     $breweries = [
-        [32391, 'Cervecería 1', 'Este sería el contenido de artículo 1 que no es muy largo'],
-        [23232, 'Cervecería 2', 'Este sería el contenido de artículo 2 que es el siguiente'],
-        [54543, 'Cervecería 3', 'Este sería el contenido de artículo 3 que es la suma de los dos anteriores'],
-        [21215, 'Cervecería 5', 'Este sería el contenido de artículo 5 que sigue la numeración de Fibonacci'],
-        [33228, 'Cervecería 8', 'Este sería el contenido de artículo 8 que ya es el último']
+        [1, 'Bewikl', 'Es una cervecería con gran variedad y una terraza con vistas al Acueducto'],
+        [2, 'El Yunque', 'Fábrica de cerveza con cervecería todo en uno. Puedes tomarte una cerveza mientras ves cómo la fabrican'],
+        [3, 'La Txapela', 'Pinchos con el sabor del barrio viejo de Bilbao, acompañados de una amplia carta de cervezas'],
+        [5, 'Los Amigos', 'Una cervecería de las de toda la vida, con la más pura tradición de las tabernas madrileñas'],
+        [8, 'Petite Bretagne', 'Amplia carta de cervezas y crepes dulces y salados']
         ];
-        $breweries[0][2];
         return $breweries;    
 }
+*/
 
 
 /*
@@ -53,31 +38,19 @@ Route::get('/index', function () {
     return view('home');
 })->name('inicio');
 
-Route::get('/breweries', function () {
-    
-    $breweries = getBreweries ();
 
-    return view('breweries', ['breweries' => $breweries]);
-})->name ('breweries');
+Route::get('/breweries', [BreweryController::class, 'index'])->name ('breweries');
+
+// Deprecated -> Route::get('/breweries', 'BreweryController@index')->name ('breweries');
 
 // Detalle de la cervecería
-Route::get ('/brewery/{id}', function ($id) {
-    $breweries = getBreweries ();
 
-    $fila = -1;
-    for ($i = 0; $i < sizeof ($breweries); $i++) {
-        if ($id == $breweries[$i][0]) {
-            $fila = $i;
-        }
-    }
-
-    return view ('brewery', ['brewery' => $breweries[$fila]]);
-});
+Route::get ('/brewery/{id}', [BreweryController::class, 'show']);
+ 
 
 
-Route::get('/contact', function () {
-    return view('contact');
-});
+Route::get('/contact', [ContactController::class, 'show']);
+Route::post('/contact', [ContactController::class, 'store']);
 
 
 Route::get('/about', function () {
