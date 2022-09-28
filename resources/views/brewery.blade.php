@@ -8,7 +8,7 @@
 
 <br>
 
-        <x-card title="{{ $brewery[1] }}" body="{{ $brewery[2] }}" text >
+        <x-card title="{{ $brewery->name }}" body="{{ $brewery->description }}" text >
       </x-card> 
             
         <br>

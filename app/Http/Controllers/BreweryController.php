@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BreweryController extends Controller
 {
@@ -14,23 +15,26 @@ class BreweryController extends Controller
             [5, 'Los Amigos', 'Una cervecería de las de toda la vida, con la más pura tradición de las tabernas madrileñas'],
             [8, 'Petite Bretagne', 'Amplia carta de cervezas y crepes dulces y salados']
             ];
-    
+           
+
     public function index () {
-
-
-        return view('breweries', ['breweries' => $this->breweries]);
+        $breweries = DB::table ('breweries')->get();
+        //dd ($breweries);
+        return view('breweries', ['breweries' => $breweries]);
     }
 
 
     public function show ($id) {
-    
+    /*
         $fila = -1;
         for ($i = 0; $i < sizeof ($this->breweries); $i++) {
             if ($id == $this->breweries[$i][0]) {
                 $fila = $i;
             }
-        }
+        } */
 
-        return view ('brewery', ['brewery' => $this->breweries[$fila]]);
+        $brewery = DB::table('breweries')->find($id);
+        //dd ($brewery);
+        return view ('brewery', ['brewery' => $brewery ]);
     }
 }
