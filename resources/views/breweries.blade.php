@@ -9,8 +9,12 @@
    
     @foreach ($breweries as $brewery)
 
+
+
     <x-card title="{{ $brewery->name }}" 
     body="{{ $brewery->description }}" 
+    img="{{ $brewery->img }}" 
+    place="{{ $brewery->place }}"
     link="/brewery/{{ $brewery->id }}" text>
         <x-slot:text>
             <p class="bg-red">Disclaimer / <b>Exención de responsabilidad</b></p>
@@ -19,4 +23,7 @@
 
     @endforeach
 </div>
+<br>
+<p class="text-center"><a class="btn btn-success" href="{{ route ('brewery') }}">Nueva cervecería</a></p>
+
 @endsection

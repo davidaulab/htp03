@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\support\Facades\Storage;
+use App\Http\Requests\BreweryRequest;
 
 class BreweryController extends Controller
 {
@@ -20,21 +23,82 @@ class BreweryController extends Controller
     public function index () {
         $breweries = DB::table ('breweries')->get();
         //dd ($breweries);
+        foreach ($breweries as $brewery) {
+            if ($brewery->img == "") {
+                $brewery->img = asset ('/img/logo.png');
+            }
+        }
         return view('breweries', ['breweries' => $breweries]);
     }
 
 
     public function show ($id) {
-    /*
-        $fila = -1;
-        for ($i = 0; $i < sizeof ($this->breweries); $i++) {
-            if ($id == $this->breweries[$i][0]) {
-                $fila = $i;
-            }
-        } */
+
 
         $brewery = DB::table('breweries')->find($id);
         //dd ($brewery);
+        if ($brewery->img == "") {
+            $brewery->img = asset ('/img/logo.png');
+        }
         return view ('brewery', ['brewery' => $brewery ]);
+    }
+
+    public function create () {
+        
+        return view('newbrewery');
+    }
+
+    public function store (BreweryRequest $request) {
+        
+       
+        $path = $request->file ('img')->store('public/multimedia');
+        $urlweb = Storage::url ($path);
+
+        DB::table('breweries')->insert([
+            'name' => $request->title,
+            'description' => $request->cuerpo,
+            'place' => $request->place,
+            'img' => $urlweb
+        ]);
+
+
+        return redirect()->route('breweries')->with ('success', 'Se ha guardado la cervecería') ;
+    }
+
+    public function edit ($id) {
+        $brewery = DB::table('breweries')->find($id);
+      
+        return view ('editbrewery', ['brewery' => $brewery ]);
+    }
+
+    public function update (BreweryRequest $request) {
+        
+        $urlweb ="";
+
+        if ($request->hasFile('img')) {
+            $path = $request->file ('img')->store('public/multimedia');
+            $urlweb = Storage::url ($path);
+
+            
+        }
+ 
+       
+
+        DB::table('breweries')->where('id', '=', $request->id)
+                            ->update ([
+                                'name' => $request->title,
+                                'description' => $request->cuerpo,
+                                'place' => $request->place,
+                                'img' => $urlweb
+                            ]);
+
+  
+        return redirect()->route('breweries')->with ('success', 'Se ha actualizado la cervecería') ;
+    }
+    public function delete (Request $request) {
+     //   
+        DB::table('breweries')->delete($request->id);
+        return redirect()->route('breweries')->with ('success', 'Se ha eliminado la cervecería') ;
+   
     }
 }

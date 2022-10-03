@@ -8,12 +8,22 @@
 
 <br>
 
-        <x-card title="{{ $brewery->name }}" body="{{ $brewery->description }}" text >
-      </x-card> 
-            
-        <br>
-        <p class="text-center"><a class="btn btn-warning" href="{{ route ('breweries') }}">Volver</a></p>
+<x-card title="{{ $brewery->name }}" body="{{ $brewery->description }}" img="{{ $brewery->img }}"
+    place="{{ $brewery->place }}">
+</x-card>
+
+<br>
+<div class="d-flex justify-content-around">
+  
+    <a class="btn btn-success" href="{{ url ('/editbrewery/') . '/' . $brewery->id }}">Modificar</a>
+    <form method="post" action="{{ url ('/deletebrewery')}}">
+      @csrf
+    <input type="hidden" name="id" id="id" value="{{$brewery->id}}">  
+    <button type="submit" class="btn btn-danger" >Borrar</button>
+    </form>
+    <a class="btn btn-warning" href="{{ route ('breweries') }}">Volver</a>
+  </div>
 
 
 
- @endsection
+@endsection

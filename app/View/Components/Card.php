@@ -19,6 +19,7 @@ class Card extends Component
      */ 
     public $link;
     public $text;
+  
     /**
      * Create a new component instance.
      *
@@ -31,6 +32,7 @@ class Card extends Component
         $this->body = $body;
         $this->link = $link;
         $this->text = $text;
+ 
     }
 
     /**

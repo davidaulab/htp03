@@ -4,19 +4,6 @@ use App\Http\Controllers\BreweryController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
-/*
-function getBreweries () {
-   
-    $breweries = [
-        [1, 'Bewikl', 'Es una cervecería con gran variedad y una terraza con vistas al Acueducto'],
-        [2, 'El Yunque', 'Fábrica de cerveza con cervecería todo en uno. Puedes tomarte una cerveza mientras ves cómo la fabrican'],
-        [3, 'La Txapela', 'Pinchos con el sabor del barrio viejo de Bilbao, acompañados de una amplia carta de cervezas'],
-        [5, 'Los Amigos', 'Una cervecería de las de toda la vida, con la más pura tradición de las tabernas madrileñas'],
-        [8, 'Petite Bretagne', 'Amplia carta de cervezas y crepes dulces y salados']
-        ];
-        return $breweries;    
-}
-*/
 
 
 /*
@@ -46,8 +33,13 @@ Route::get('/breweries', [BreweryController::class, 'index'])->name ('breweries'
 // Detalle de la cervecería
 
 Route::get ('/brewery/{id}', [BreweryController::class, 'show']);
+Route::get ('/brewery', [BreweryController::class, 'create'])->name ('brewery');
+Route::post ('/brewery', [BreweryController::class, 'store']);
  
+Route::get ('/editbrewery/{id}', [BreweryController::class, 'edit']);
+Route::post ('/editbrewery', [BreweryController::class, 'update'])->name ('editbrewery');
 
+Route::post ('/deletebrewery', [BreweryController::class, 'delete']);
 
 Route::get('/contact', [ContactController::class, 'show']);
 Route::post('/contact', [ContactController::class, 'store']);
